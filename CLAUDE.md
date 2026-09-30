@@ -31,9 +31,12 @@ on the ticket and take the next one; never guess. Say on the ticket, in one comm
 ## Standards every project keeps (murphy360/standards)
 - CI calls the shared workflows at a pinned version tag: standards-check, python-lint (ruff at its defaults, 88
   columns, `ruff format`), shell-lint, actionlint, test-docker, image.
-- The code rules ratchet (`code_rules_baseline.json`): complexity 15, 15 branches and 60 statements per function,
-  800 lines per file (1200 for a test). Never add to a file over the limit; split it in a PR of its own first. When
-  you fix a finding, lower the baseline in the same PR (`code_rules.py --update`).
+- The code rules (`code_rules.py`): complexity 15, 15 branches and 60 statements per function, 800 lines per file
+  (1200 for a test). Every file is clean: formatted, no finding, no `# noqa`, under the size limit. CI checks every
+  file on every run, and a finding anywhere fails it; each finding is printed with its line, rule and fix. A change
+  that would take a file over the limit splits it in the same PR. There is no baseline and no flag that skips the
+  rules. Run `code_rules.py --all` before a push. A PR that only re-formats is labelled `format-only`, and
+  `code_rules.py --format-only` proves it changed no code.
 - Every third-party action is pinned to a commit SHA; Dependabot (`.github/dependabot.yml`) keeps them and the
   dependencies current, one grouped PR per ecosystem per week.
 - Times are UTC. Secrets never go in the repository, a ticket or a log.

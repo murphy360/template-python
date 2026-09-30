@@ -38,19 +38,17 @@ The code rules, as CI runs them (ruff 0.6.9, a copy of murphy360/standards next 
 
 ```bash
 pip install ruff==0.6.9
-python3 <standards>/tools/code_rules.py     # ruff, complexity and file size, against the ratchet
-ruff format --check .
+python3 <standards>/tools/code_rules.py --all   # every file: ruff, no noqa, complexity, file size, format
 python3 <standards>/tools/check_standards.py
 ```
 
-`code_rules_baseline.json` starts empty: a new project has no debt. When you fix a finding in a file that had one,
-lower the baseline in the same pull request with `code_rules.py --update`. Never raise a ceiling.
+Every file is clean, and CI checks every file on every run. There is no baseline: a finding anywhere fails.
 
 ## Take standards updates
 
-CI calls the shared workflows at a version tag, `murphy360/standards/...@v1`. A compatible change moves the `v1`
-tag, so you get it with no edit. To move to a new major version, change every `@v1` in `.github/workflows/ci.yml`
-to the new tag (for example `@v2`) and read the standards' release notes for what else to change. The templates
+CI calls the shared workflows at a version tag, `murphy360/standards/...@v2`. A compatible change moves the `v2`
+tag, so you get it with no edit. To move to a new major version, change every `@v2` in `.github/workflows/ci.yml`
+to the new tag (for example `@v3`) and read the standards' release notes for what else to change. The templates
 (`CLAUDE.md`, `dependabot.yml`, `ci.yml`) are copies: when the standards change them, compare and take what you want.
 
 ## What is here
@@ -64,4 +62,3 @@ to the new tag (for example `@v2`) and read the standards' release notes for wha
 | `CLAUDE.md` | how an agent session works in the project |
 | `docs/MILESTONES.md` | the milestone conventions |
 | `pyproject.toml`, `src/`, `tests/`, `Dockerfile` | a package with one passing test, and the image that runs it |
-| `code_rules_baseline.json` | the code rules ratchet, empty |
