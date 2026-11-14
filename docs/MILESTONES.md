@@ -27,9 +27,9 @@ the owner's word. An agent never tags or creates a release on its own. It may pr
 
 ## Tickets
 
-Every ticket uses `.github/ISSUE_TEMPLATE/ticket.md`: Problem, What to build, For the implementer, Done. The
-implementer section names the files, the tests, the docs and what done means, so that whoever picks it up needs
-nothing else.
+Every ticket uses `.github/ISSUE_TEMPLATE/ticket.md`: Problem, What to build, Acceptance, For the implementer, Out of
+scope and Owner decision. It is the whole brief: the implementer section names the files, the tests, the docs and
+where the work stops, so that whoever picks it up needs nothing else.
 
 ## Setting up a milestone
 
