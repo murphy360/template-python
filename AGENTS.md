@@ -61,7 +61,7 @@ on the ticket, in one comment, that you started and which branch.
 
 NEW PROJECT: replace this section with what is particular to the project: how to build and test it, its stacks and
 ports, its devices, its conventions. Change the title too. Keep the two marker comments above: the text between them
-is the standard's, and CI checks it is current (`check-templates: true`).
+is the standard's, and CI checks it is current (the `check-templates` check, on by default).
 
 - Build and test in Docker: `docker build -t my-service:test-<you> .`, then
   `docker run --rm -v "$PWD:/src" -w /src my-service:test-<you> pytest -q`.
