@@ -44,20 +44,27 @@ pip install pre-commit && pre-commit install   # once per checkout
 pre-commit run --all-files                     # every hook on every file: the one command before a push
 ```
 
-Every file is clean, and CI checks every file on every run. There is no baseline: a finding anywhere fails.
+Every file is clean, and CI checks every file on every run. There is no baseline and no changed-files mode: a
+finding anywhere fails. The rules are the standard's (F, E4, E7, E9, B without B008, UP, SIM, I, C901 and
+PLR0915), and each finding prints its fix.
+
+Every check is on by default: the silencer check (a skip, an xfail, a type ignore or a `# pragma: no cover` carries a
+reason), the project's own ruff pin, and the six standards checks (the pull request and ticket templates, the
+pre-commit config, the shared text of `AGENTS.md`, the Claude Code settings and one ruff version). A project that
+needs one off sets its input to `false` in `ci.yml`, with the reason beside it.
 
 ## Take standards updates
 
-CI calls the shared actions and workflows at a version tag, `murphy360/standards/...@v2`. A compatible change moves
-the `v2` tag, so you get it with no edit. To move to a new major version, change every `@v2` in
-`.github/workflows/ci.yml` to the new tag (for example `@v3`) and read the standards' release notes for what else to
+CI calls the shared actions and workflows at a version tag, `murphy360/standards/...@v3`. A compatible change moves
+the `v3` tag, so you get it with no edit. To move to a new major version, change every `@v3` in
+`.github/workflows/ci.yml` to the new tag (for example `@v4`) and read the standards' release notes for what else to
 change.
 
-The other files are copies. `check-templates: true` fails CI when the shared text of `AGENTS.md` falls behind the
-standard's; `python3 <standards>/tools/sync_templates.py .` rewrites it, and `--all` lists the other copies that
+The other files are copies. The `check-templates` check fails CI when the shared text of `AGENTS.md` falls behind
+the standard's; `python3 <standards>/tools/sync_templates.py .` rewrites it, and `--all` lists the other copies that
 differ. Move the `code-rules` hook's `rev` in `.pre-commit-config.yaml` to each new release's commit. Dependabot
 brings a new ruff in a pull request of its own: move the `ruff-pre-commit` rev to the same release in that pull
-request (`check-ruff-version: true` fails until they agree).
+request (the `check-ruff-version` check fails until they agree).
 
 ## What is here
 
