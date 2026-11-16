@@ -1,0 +1,11 @@
+# The project's terms: one entry each, and docs/GLOSSARY.md is generated from them (the `glossary` hook writes it,
+# CI checks it). A pull request that brings in a new term defines it here.
+- term: Definition of done
+  definition: >
+    What a pull request holds before it merges: the code, its tests, the docs it changes, and a green CI run.
+  see: [Standard]
+- term: Standard
+  definition: >
+    The shared rules every murphy360 project follows (murphy360/standards): the checks CI runs, the templates,
+    and the instructions agents read.
+  synonyms: [murphy360/standards]
