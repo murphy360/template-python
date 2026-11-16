@@ -53,6 +53,17 @@ reason), the project's own ruff pin, and the six standards checks (the pull requ
 pre-commit config, the shared text of `AGENTS.md`, the Claude Code settings and one ruff version). A project that
 needs one off sets its input to `false` in `ci.yml`, with the reason beside it.
 
+Three more checks come with the standard's v3.1.0:
+
+- **The glossary.** Each term the project uses is defined once in `docs/terms.yaml`, and `docs/GLOSSARY.md` is
+  generated from it: the `glossary` hook writes the page, and CI fails when it is stale. A pull request that brings
+  in a new term defines it there.
+- **Layering contracts.** A project with more than one package says which may import which in `.importlinter`, and
+  every allowed exception names its ticket. This template has one package, so it has none; add the file when a
+  second package arrives.
+- **The reuse report.** CI's log lists names defined twice and duplicated blocks, and a pull request's summary says
+  what it added. It never fails.
+
 ## Take standards updates
 
 CI calls the shared actions and workflows at a version tag, `murphy360/standards/...@v3`. A compatible change moves
@@ -71,7 +82,8 @@ request (the `check-ruff-version` check fails until they agree).
 | Path | What it is |
 |---|---|
 | `.github/workflows/ci.yml` | CI: the quick checks in one job, the tests, the image, and the `result` job a ruleset requires |
-| `.pre-commit-config.yaml` | the code rules, ruff format, shellcheck, actionlint and gitleaks, at the versions CI uses |
+| `.pre-commit-config.yaml` | the code rules, ruff format, layering, the glossary, shellcheck, actionlint and gitleaks, at the versions CI uses |
+| `docs/terms.yaml`, `docs/GLOSSARY.md` | the project's terms, and the page generated from them |
 | `.github/dependabot.yml` | weekly grouped updates for actions, pip and docker; ruff alone |
 | `.github/ISSUE_TEMPLATE/` | the ticket shape (`ticket.md`), and the blank issue beside it |
 | `.github/pull_request_template.md` | the PR body: what and why, docs, known gaps, `Closes #N` |
